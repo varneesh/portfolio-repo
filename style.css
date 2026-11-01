@@ -253,7 +253,7 @@ footer{text-align:center;color:var(--mut);padding:30px 0 60px;font-size:.9rem}
 #home h1 {
     white-space: nowrap !important;
     font-size: clamp(2rem, 5.5vw, 5.4rem) !important;
-    letter-spacing: -0.055em;
+    letter-spacing: -0.025em;
     width: max-content;
     max-width: none;
     line-height: 1.1;
