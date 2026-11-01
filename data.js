@@ -7,7 +7,25 @@ const DATA = {
   photos: ["assets/photo-1.jpg", "assets/photo-2.jpg", "assets/photo-3.jpg"], // tap the hero photo to cycle these
   badges: ["CGPA 7.5", "UI/UX + Web"],
   about: "A dedicated, detail-oriented Bachelor of Computer Applications student with hands-on experience in web development, UI/UX design and student leadership. I solve problems under pressure, manage team dynamics and pick up new technologies quickly. I'm looking to turn my technical skills and analytical mindset into meaningful results for the team I join.",
-  stats: [{n: 7.5, l: "CGPA"}, {n: 1000, s: "+", l: "event participants"}, {n: 150, s: "+", l: "hackathon students"}, {n: 1, l: "internship done"}],
+ stats: [
+  { n: 7.5, l: "CGPA" },
+
+  {
+    n: 1000,
+    s: "+",
+    l: "Event with 1000+ participants",
+    detail: "Collaborated with a team to conceptualize and execute 'TENET-2K26', a state-level intercollegiate event hosting over 1000+ student participants."
+  },
+
+  {
+    n: 150,
+    s: "+",
+    l: "Event with 150+ hackathon participants",
+    detail: "Conducted Hackathon event named 'TECH FORGE-2K26' and cultivated core competencies in time management and experience in problem solving in the coding field."
+  },
+
+  { n: 1, l: "Internship done" }
+],
   tech: ["Java", "Python", "JavaScript", "HTML & CSS", "Prompting"],
   soft: ["English typewriting", "Leadership & teamwork", "Time management"],
   journey: [
