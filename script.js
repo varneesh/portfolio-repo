@@ -18,11 +18,53 @@ const C=D.contact,L=[["Email","mailto:"+C.email,C.email],["Call","tel:"+C.phone.
 $("#links").innerHTML=L.filter(l=>l[2]&&l[1].length>7).map(l=>`<a href="${esc(l[1])}" target="_blank" rel="noopener">${esc(l[2])}</a>`).join("")+(C.location?`<span>${esc(C.location)}</span>`:"");
 $("#copy").onclick=e=>{navigator.clipboard?.writeText(C.email);e.target.textContent="Copied";setTimeout(()=>e.target.textContent="Copy email",1800)};
 $("#foot").textContent=`© ${new Date().getFullYear()} ${D.name}`;
-/* nav */
-const sec=[["home","Home"],["about","About"],["skills","Skills"],["journey","Journey"],["projects","Projects"],["leadership","Leadership"],["contact","Contact"]];
-$("#nav").innerHTML=sec.map(([i,t])=>`<a href="#${i}">${t}</a>`).join("");
-const spy=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;$$("#nav a").forEach(a=>{const on=a.hash=="#"+e.target.id;a.classList.toggle("on",on);on&&$("#nav").scrollTo({left:a.offsetLeft-70,behavior:"smooth"})})}),{rootMargin:"-45% 0px -50% 0px"});
-sec.forEach(([i])=>spy.observe($("#"+i)));
+/* VERTICAL SVG NAVIGATION */
+
+const sec = [
+  ["home", "Home", `<svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7"/><path d="M5 9v12h14V9"/><path d="M9 21v-7h6v7"/></svg>`],
+
+  ["about", "About", `<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>`],
+
+  ["skills", "Skills", `<svg viewBox="0 0 24 24"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.8 3.1-.2-.1a1.7 1.7 0 0 0-1.8.1l-.2.1h-3.6l-.1-.2a1.7 1.7 0 0 0-1.5-1l-.2-.1-1.8-3.1.1-.2a1.7 1.7 0 0 0-.3-1.8l-.1-.2V10l.2-.1a1.7 1.7 0 0 0 .3-1.8l-.1-.2 1.8-3.1.2.1a1.7 1.7 0 0 0 1.8-.1l.2-.1h3.6l.1.2a1.7 1.7 0 0 0 1.5 1l.2.1 1.8 3.1-.1.2a1.7 1.7 0 0 0 .3 1.8l.1.2v3.6Z"/></svg>`],
+
+  ["journey", "Journey", `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z"/></svg>`],
+
+  ["projects", "Projects", `<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v6"/></svg>`],
+
+  ["leadership", "Leadership", `<svg viewBox="0 0 24 24"><path d="m2 8 5 4 5-8 5 8 5-4-2 12H4L2 8Z"/><path d="M4 20h16"/></svg>`],
+
+  ["contact", "Contact", `<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>`]
+];
+
+/* Generate navigation */
+
+$("#nav").innerHTML = sec.map(([id, title, icon]) => `
+  <a href="#${id}" aria-label="${title}" title="${title}">
+    <span class="nav-icon">${icon}</span>
+    <span class="nav-label">${title}</span>
+  </a>
+`).join("");
+
+/* Active section detection */
+
+const spy = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+
+    $$("#nav a").forEach(a => {
+      a.classList.toggle(
+        "on",
+        a.hash === "#" + entry.target.id
+      );
+    });
+  });
+}, {
+  rootMargin: "-45% 0px -50% 0px"
+});
+
+sec.forEach(([id]) => {
+  spy.observe($("#" + id));
+});
 /* typing */
 let ri=0,ci=0,dl=0;const tp=$("#typed");
 (function tick(){const r=D.roles[ri];ci+=dl?-1:1;tp.textContent=r.slice(0,ci);let t=dl?35:75;
