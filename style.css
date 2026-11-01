@@ -258,3 +258,25 @@ footer{text-align:center;color:var(--mut);padding:30px 0 60px;font-size:.9rem}
     max-width: none;
     line-height: 1.1;
 }
+/* SHIFT HOME HERO SECTION LEFT */
+
+#home .wrap {
+    transform: translateX(-45px);
+    width: calc(100% - 90px);
+    max-width: 1250px;
+}
+
+/* Prevent profile image from being cut off */
+
+#home {
+    overflow-x: clip;
+}
+
+/* Responsive adjustment */
+
+@media (max-width: 820px) {
+    #home .wrap {
+        transform: translateX(0);
+        width: calc(100% - 100px);
+    }
+}
