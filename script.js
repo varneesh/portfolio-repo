@@ -9,7 +9,50 @@ $("#tag").textContent=D.tagline;$("#abt").textContent=D.about;
 $("#b1").textContent=D.badges[0];$("#b2").textContent=D.badges[1];
 $$(".dl").forEach(a=>{a.href=D.resume;a.setAttribute("download","")});
 $("#p2").src=D.photos[1];$("#p3").src=D.photos[2];
-$("#stats").innerHTML=D.stats.map(s=>`<div class="stat"><b data-n="${s.n}" data-s="${s.s||""}">0</b><span>${esc(s.l)}</span></div>`).join("");
+$("#stats").innerHTML = D.stats.map(s => `
+  ${s.detail ? `
+    <button type="button" class="stat stat-expand" aria-expanded="false">
+      <b data-n="${s.n}" data-s="${s.s || ""}">0</b>
+      <span class="stat-label">${esc(s.l)}</span>
+      <span class="stat-more">${esc(s.detail)}</span>
+    </button>
+  ` : `
+    <div class="stat">
+      <b data-n="${s.n}" data-s="${s.s || ""}">0</b>
+      <span class="stat-label">${esc(s.l)}</span>
+    </div>
+  `}
+`).join("");
+/* Interactive achievement cards */
+
+$$(".stat-expand").forEach(card => {
+
+  // Expand when hovering on desktop
+  card.addEventListener("pointerenter", () => {
+    if (matchMedia("(hover: hover)").matches) {
+      card.classList.add("is-open");
+      card.setAttribute("aria-expanded", "true");
+    }
+  });
+
+  // Collapse when cursor leaves, unless clicked
+  card.addEventListener("pointerleave", () => {
+    if (card.dataset.pinned !== "true") {
+      card.classList.remove("is-open");
+      card.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  // Click to keep expanded or collapse
+  card.addEventListener("click", () => {
+    const pinned = card.dataset.pinned !== "true";
+
+    card.dataset.pinned = String(pinned);
+    card.classList.toggle("is-open", pinned);
+    card.setAttribute("aria-expanded", String(pinned));
+  });
+
+});
 $("#tech").innerHTML=chips(D.tech);$("#soft").innerHTML=chips(D.soft);
 $("#tl").innerHTML=D.journey.map((j,i)=>`<div class="it reveal" style="--d:${i*.08}s"><small>${esc(j.tag)}</small><h3>${esc(j.title)}</h3><p>${esc(j.place)}${j.text?"<br>"+esc(j.text):""}</p></div>`).join("");
 $("#pj").innerHTML=D.projects.map((p,i)=>`<button class="card pj reveal" data-i="${i}" style="--d:${i*.1}s"><div class="cover" style="--c1:${p.colors[0]};--c2:${p.colors[1]}">${p.icon}</div><span class="tag">${esc(p.tag)}</span><h3>${esc(p.title)}</h3><p>${esc(p.desc.slice(0,95))}…</p></button>`).join("");
