@@ -258,25 +258,40 @@ footer{text-align:center;color:var(--mut);padding:30px 0 60px;font-size:.9rem}
     max-width: none;
     line-height: 1.1;
 }
-/* SHIFT HOME HERO SECTION LEFT */
-
-#home .wrap {
-    transform: translateX(-45px);
-    width: calc(100% - 90px);
-    max-width: 1250px;
-}
-
-/* Prevent profile image from being cut off */
+/* HOME SECTION LAYOUT FIX */
 
 #home {
-    overflow-x: clip;
+    overflow: visible;
 }
 
-/* Responsive adjustment */
+#home .wrap {
+    transform: none;
+    width: min(100% - 150px, 1450px);
+    max-width: 1450px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Keep profile image within the screen */
+
+#home .hero {
+    min-width: 0;
+}
+
+#home .hero > * {
+    min-width: 0;
+}
+
+#home img {
+    max-width: 100%;
+}
+
+/* Responsive layout */
 
 @media (max-width: 820px) {
     #home .wrap {
-        transform: translateX(0);
         width: calc(100% - 100px);
+        margin-left: 80px;
+        margin-right: 20px;
     }
 }
