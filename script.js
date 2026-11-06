@@ -41,11 +41,11 @@ cols.forEach((col,i)=>{const el=document.createElement("div");el.className="cu";
 $("#av").innerHTML=cols.slice(0,5).map(c=>`<i style="--c:${c}"></i>`).join("");$("#ag").textContent=`${items.length} agents`;
 addEventListener("resize",()=>{W=innerWidth;H=innerHeight},{passive:true});
 
- // Desktop: track the real mouse. Touch devices: set the cursor group at each tap.
+// Desktop mouse movement will not control the five extra cursors.
+// Mobile taps will set their destination.
 addEventListener("pointermove",e=>{
   if(e.pointerType==="mouse"){
-    px=e.clientX;
-    py=e.clientY;
+    // Keep normal mouse movement independent of the five extra cursors.
   }
 },{passive:true});
 
@@ -55,51 +55,6 @@ addEventListener("pointerdown",e=>{
     py=e.clientY;
   }
 },{passive:true});
-
-function loop(t){
-  if(lite||document.hidden){
-    run0=false;
-    return;
-  }
-
-  requestAnimationFrame(loop);
-
-  const dt=Math.min(t-last,100);
-  last=t;
-  ema+=(dt-ema)*.05;
-
-  if(ema>48){
-    if(++slow>90)return setLite();
-  }else{
-    slow=0;
-  }
-
-  const k=1-Math.pow(.002,dt/1000);
-  const s=t/1000;
-
-  // Only desktop mouse-follow behavior is enabled.
-  const fol=px>=0&&
-    !root.classList.contains("building")&&
-    matchMedia("(hover: hover) and (pointer: fine)").matches;
-
-  for(const c of items){
-    if(c.busy)continue;
-
-    const tx=c.f&&fol
-      ?px+c.ox
-      :c.cx*W+Math.sin(s*c.sa+c.p)*c.rx;
-
-    const ty=c.f&&fol
-      ?py+c.oy
-      :c.cy*H+Math.cos(s*c.sb+c.p)*c.ry;
-
-    c.x+=(tx-c.x)*k;
-    c.y+=(ty-c.y)*k;
-
-    c.el.style.transform=
-      `translate3d(${c.x}px,${c.y}px,0) rotate(-12deg)`;
-  }
-}
 
 function loop(t){if(lite||document.hidden){run0=false;return}requestAnimationFrame(loop);
  const dt=Math.min(t-last,100);last=t;ema+=(dt-ema)*.05;if(ema>48){if(++slow>90)return setLite()}else slow=0;
