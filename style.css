@@ -18,7 +18,7 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}button{fon
 .wire i:nth-child(1){left:-4px;top:-4px}.wire i:nth-child(2){right:-4px;top:-4px}.wire i:nth-child(3){left:-4px;bottom:-4px}.wire i:nth-child(4){right:-4px;bottom:-4px}
 .wire u{position:absolute;right:0;bottom:-24px;padding:2px 6px;background:var(--n);color:var(--ink);font:700 .6rem var(--mono);text-decoration:none;white-space:nowrap;opacity:0;transition:opacity .2s}
 .wire.sel i,.wire.sel u{opacity:1}
-.cur{position:fixed;inset:0;z-index:46;pointer-events:none;overflow:hidden}
+.cur{display:none!important}
 .cu{position:absolute;left:0;top:0;will-change:transform}.cu.tr{transition:transform calc(.45s*var(--sp)) cubic-bezier(.5,0,.2,1)}
 .cu svg{display:block;width:18px;height:18px}
 .cu b{position:absolute;left:14px;top:16px;padding:2px 7px;border-radius:4px;background:var(--c);color:#000;font:700 .6rem var(--mono);white-space:nowrap;opacity:0;transition:opacity .3s}.cu.tr b{opacity:1}
