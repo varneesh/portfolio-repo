@@ -33,8 +33,7 @@ sec.forEach(([i])=>spy.observe($("#"+i)));
 let tick=0;addEventListener("scroll",()=>{if(tick)return;tick=requestAnimationFrame(()=>{tick=0;$(".beam").style.setProperty("--p",scrollY/Math.max(1,root.scrollHeight-innerHeight))})},{passive:true});
 const count=b=>{const n=+b.dataset.n,f=String(n).includes(".")?1:0,t0=performance.now();(function s(t){const p=Math.min((t-t0)/1200,1);b.textContent=(n*(1-Math.pow(1-p,3))).toFixed(f)+(p==1?b.dataset.s:"");p<1&&requestAnimationFrame(s)})(t0)};
 /* ---------- cursors: they ambient-drift, and they BUILD the page live ---------- */
-const names=D.agents||["UI","Dev","Copy","Motion","SEO","QA"],cols=["#18c4ff","#7c5cff","#00ffa3","#ff5ca8","#ffd23f","#ffffff","#4cc9f0","#c1ff4d","#ff9f43","#a29bfe","#fd79a8","#55efc4"],cur=$("#cur"),items=[];
-let W=innerWidth,H=innerHeight,px=-1,py=-1,last=0,ema=16,slow=0,run0=false;
+const names=D.agents||["UI","Dev","Copy","Motion","SEO","QA"],cols=["#18c4ff","#7c5cff","#00ffa3","#ff5ca8","#ffd23f","#ffffff","#4cc9f0","#c1ff4d"],cur=$("#cur"),items=[];
 cols.forEach((col,i)=>{const el=document.createElement("div");el.className="cu";el.style.setProperty("--c",col);
  el.innerHTML=`<svg viewBox="0 0 20 20"><path d="M2 1l15 8-6.5 2L8 18z" fill="${col}" stroke="#000"/></svg>${i<names.length?`<b>${esc(names[i])}</b>`:""}`;cur.appendChild(el);
  items.push({el,x:Math.random()*W,y:Math.random()*H,busy:0,cx:Math.random(),cy:Math.random(),rx:40+Math.random()*120,ry:30+Math.random()*90,sa:.15+Math.random()*.25,sb:.12+Math.random()*.25,p:Math.random()*6.3,f:i>=6&&i<11,ox:(Math.random()-.5)*160,oy:30+Math.random()*90})});
