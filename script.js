@@ -34,17 +34,18 @@ let tick=0;addEventListener("scroll",()=>{if(tick)return;tick=requestAnimationFr
 const count=b=>{const n=+b.dataset.n,f=String(n).includes(".")?1:0,t0=performance.now();(function s(t){const p=Math.min((t-t0)/1200,1);b.textContent=(n*(1-Math.pow(1-p,3))).toFixed(f)+(p==1?b.dataset.s:"");p<1&&requestAnimationFrame(s)})(t0)};
 /* ---------- cursors: they ambient-drift, and they BUILD the page live ---------- */
 const names=D.agents||["UI","Dev","Copy","Motion","SEO","QA"],cols=["#18c4ff","#7c5cff","#00ffa3","#ff5ca8","#ffd23f","#ffffff","#4cc9f0","#c1ff4d","#ff9f43","#a29bfe","#fd79a8","#55efc4"],cur=$("#cur"),items=[];
+let W=innerWidth,H=innerHeight,px=-1,py=-1,last=0,ema=16,slow=0,run0=false;
 cols.forEach((col,i)=>{const el=document.createElement("div");el.className="cu";el.style.setProperty("--c",col);
  el.innerHTML=`<svg viewBox="0 0 20 20"><path d="M2 1l15 8-6.5 2L8 18z" fill="${col}" stroke="#000"/></svg>${i<names.length?`<b>${esc(names[i])}</b>`:""}`;cur.appendChild(el);
  items.push({el,x:Math.random()*W,y:Math.random()*H,busy:0,cx:Math.random(),cy:Math.random(),rx:40+Math.random()*120,ry:30+Math.random()*90,sa:.15+Math.random()*.25,sb:.12+Math.random()*.25,p:Math.random()*6.3,f:i>=6&&i<11,ox:(Math.random()-.5)*160,oy:30+Math.random()*90})});
 $("#av").innerHTML=cols.slice(0,5).map(c=>`<i style="--c:${c}"></i>`).join("");$("#ag").textContent=`${items.length} agents`;
 addEventListener("resize",()=>{W=innerWidth;H=innerHeight},{passive:true});
 
-// Desktop mouse movement will not control the five extra cursors.
-// Mobile taps will set their destination.
+ // Desktop: track the real mouse. Touch devices: set the cursor group at each tap.
 addEventListener("pointermove",e=>{
   if(e.pointerType==="mouse"){
-    // Keep normal mouse movement independent of the five extra cursors.
+    px=e.clientX;
+    py=e.clientY;
   }
 },{passive:true});
 
@@ -54,6 +55,51 @@ addEventListener("pointerdown",e=>{
     py=e.clientY;
   }
 },{passive:true});
+
+function loop(t){
+  if(lite||document.hidden){
+    run0=false;
+    return;
+  }
+
+  requestAnimationFrame(loop);
+
+  const dt=Math.min(t-last,100);
+  last=t;
+  ema+=(dt-ema)*.05;
+
+  if(ema>48){
+    if(++slow>90)return setLite();
+  }else{
+    slow=0;
+  }
+
+  const k=1-Math.pow(.002,dt/1000);
+  const s=t/1000;
+
+  // Only desktop mouse-follow behavior is enabled.
+  const fol=px>=0&&
+    !root.classList.contains("building")&&
+    matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  for(const c of items){
+    if(c.busy)continue;
+
+    const tx=c.f&&fol
+      ?px+c.ox
+      :c.cx*W+Math.sin(s*c.sa+c.p)*c.rx;
+
+    const ty=c.f&&fol
+      ?py+c.oy
+      :c.cy*H+Math.cos(s*c.sb+c.p)*c.ry;
+
+    c.x+=(tx-c.x)*k;
+    c.y+=(ty-c.y)*k;
+
+    c.el.style.transform=
+      `translate3d(${c.x}px,${c.y}px,0) rotate(-12deg)`;
+  }
+}
 
 function loop(t){if(lite||document.hidden){run0=false;return}requestAnimationFrame(loop);
  const dt=Math.min(t-last,100);last=t;ema+=(dt-ema)*.05;if(ema>48){if(++slow>90)return setLite()}else slow=0;
