@@ -24,7 +24,7 @@ const DATA = {
     {tag: "10TH", title: "Secondary school, 70%", place: "St. Vincent Pallotti Matriculation Higher Secondary School, Salem", text: ""}
   ],
   // Add, remove or reorder projects. Leave live/code as "" to hide a button. `cat` drives the filter chips.
-  projects: [ {cat: "Full-stack", tag: "ON GOING// LEARNING", title: "Seating and Hall Allotment for Examination", desc: "Its difficult to manualy prepare the allotments for the examinations to over come this, Building an application to automate the allotmentation of the seating and hall arrangements for the student cantidates on their examinations using various logical operations integrtated with.", stack: ["Full-stack", "Dashboard"], live: "", code: ""},
+  projects: [ {cat: "Full-stack", tag: "ON GOING// LEARNING", title: "Seating and Hall Allotment for Examinations", desc: "Its difficult to manualy prepare the allotments for the examinations to over come this, Building an application to automate the allotmentation of the seating and hall arrangements for the student cantidates on their examinations using various logical operations integrtated with.", stack: ["Full-stack", "Dashboard"], live: "", code: ""},
     ],
   leadership: [
     {tag: "ROLE", title: "Student chairman of the department", text: "Appointed in third year. Organised multiple academic seminars and departmental events, building strong organisational and people-management skills."},
