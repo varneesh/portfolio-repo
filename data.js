@@ -25,9 +25,7 @@ const DATA = {
   ],
   // Add, remove or reorder projects. Leave live/code as "" to hide a button. `cat` drives the filter chips.
   projects: [
-    {cat: "Full-stack", tag: "WEB APP // FULL-STACK", title: "Student Performance Tracker & CGPA Predictor", desc: "Track marks and attendance across semesters and predict the CGPA you're heading for. Replace this text with what you built and what you learned.", stack: ["Full-stack", "Dashboard"], live: "", code: ""},
-    {cat: "AI", tag: "AI // LEARNING PROJECT", title: "Mini-GPT from scratch", desc: "A small GPT-style transformer built from scratch to understand how language models work. Replace this text with your own details.", stack: ["Python", "Transformers"], live: "", code: ""}
-  ],
+    ],
   leadership: [
     {tag: "ROLE", title: "Student chairman of the department", text: "Appointed in third year. Organised multiple academic seminars and departmental events, building strong organisational and people-management skills."},
     {tag: "EVENT", title: "TENET-2K26", text: "Worked with a team to plan and run a state-level intercollegiate event with 1,000+ participants and a hackathon with 150+ students, using leadership, time management and crisis resolution at scale."}
