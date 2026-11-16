@@ -11,7 +11,7 @@ const DATA = {
     {t: "UI/UX eye", d: "Interfaces designed for clarity first, then polished in code."},
     {t: "Team leadership", d: "Department chairman and co-organiser of a 1,000+ participant event."}
   ],
-  stats: [{n: 7.5, l: "CGPA"}, {n: 1000, s: "+", l: "Organized Event with 1000+ participants"}, {n: 150, s: "+", l: "Conducted Hackathon for 150+ students"}, {n: 1, l: "Internship"}],
+  stats: [{n: 7.5, l: "CGPA"}, {n: 1000, s: "+", l: "Organized Event\nwith 1000+ participants"}, {n: 150, s: "+", l: "Conducted Hackathon\nfor 150+ students"}, {n: 1, l: "Internship"}],
   about: "A dedicated, detail-oriented Bachelor of Computer Applications student with hands-on experience in web development, UI/UX design and student leadership. I solve problems under pressure, manage team dynamics and pick up new technologies quickly, and I want to turn that into meaningful results for the team I join.",
   quote: "Good design is clear, fast and works on every screen. Good teams ship on time.",
   photos: [["assets/a1-g.jpg", "assets/a1-c.jpg", "KSR CAMPUS"], ["assets/a2-g.jpg", "assets/a2-c.jpg", "OFF DUTY"]], // [black&white, colour on hover, label]
